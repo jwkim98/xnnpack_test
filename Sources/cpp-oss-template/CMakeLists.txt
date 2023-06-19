@@ -4,11 +4,17 @@ set(target cpp-oss-template)
 # Define
 set(root_dir ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 
+set(XNNPACK_DIR ${CMAKE_SOURCE_DIR}/Libraries/xnnpack)
+
 # Includes
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Libraries
+    ${XNNPACK_DIR}/include
+    ${PTHREADPOOL_SOURCE_DIR}/include
 )
+
+message(STATUS ${PTHREADPOOL_SOURCE_DIR}/include)
 
 # Sources
 file(GLOB header_dir
@@ -42,12 +48,18 @@ target_compile_options(${target}
 
 target_link_libraries(${target}
     PRIVATE
+    XNNPACK
+    ${operators}
 
     PUBLIC
     ${DEFAULT_LINKER_OPTIONS}
 	${DEFAULT_LIBRARIES}
 
     INTERFACE
+)
+
+target_include_directories(${target} PUBLIC 
+${PTHREADPOOL_SOURCE_DIR}/include
 )
 
 # Install

@@ -23,6 +23,8 @@ build
 # CLion files
 /.idea
 cmake-build-debug
+cmake-build-debug-docker-1
+cmake-build-debug-garnet
 
 # vi files
 .clang_complete
